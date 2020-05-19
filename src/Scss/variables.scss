@@ -1,0 +1,29 @@
+// BASE COLOUR
+$base-color: #293556;
+$secondary-color: #26304B;
+$secondary-font: #c6c5c5;
+
+*{
+    color: white;
+}
+
+// MAIN COLOUR
+$neon: #6EFAFF;
+$bg-neon:#40AEA5;
+
+// GRADIENT THEME
+$gradient-1: #FD6051;
+$gradient-2: #FF8967;
+$gradient-3: #FEC051;
+$gradient-4: #FFE577;
+
+// SIZE
+$h1 : 5em;
+$h2 : 3em;
+$h3 : 2em;
+
+@mixin fix-container{
+    margin: 50% auto;
+    width: 75%;
+    box-sizing: border-box;
+}
