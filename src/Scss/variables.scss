@@ -3,9 +3,6 @@ $base-color: #293556;
 $secondary-color: #26304B;
 $secondary-font: #c6c5c5;
 
-*{
-    color: white;
-}
 
 // MAIN COLOUR
 $neon: #6EFAFF;
@@ -18,12 +15,14 @@ $gradient-3: #FEC051;
 $gradient-4: #FFE577;
 
 // SIZE
-$h1 : 5em;
-$h2 : 3em;
-$h3 : 2em;
+$h1 : 3em;
+$h2 : 1.5em;
+$h3 : 1.2em;
+$h4 : 1em;
+$h5 : 0.85em;
 
 @mixin fix-container{
-    margin: 50% auto;
+    margin: 0 auto;
     width: 75%;
     box-sizing: border-box;
 }

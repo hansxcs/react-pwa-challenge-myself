@@ -1,11 +1,12 @@
 import React from 'react'
 import "../Scss/button.scss"
 
-const Button = ({formdata}) =>{
+const Button = ({formdata,change}) =>{
     var template = null;
     const renderButton = ()=>{
         template = (
-            <button className="btn btn-primary">{formdata.value}</button>
+            <button type="submit" className="btn btn-primary" 
+                >{formdata.value}</button>
         )
         return template;
     }

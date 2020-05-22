@@ -15,9 +15,11 @@ const FormField =({formdata,change,id})=> {
                         value={formdata.value}
                         onBlur={(event) => change({ event, id, blur: true })}
                         onChange={(event) => change({ event, id, blur: false })}
+                        autoComplete="off"
                     />
-                    {showError()}
                     </div>
+                    
+                    {showError()}
                 </div>
             );
                 break;
@@ -32,7 +34,7 @@ const FormField =({formdata,change,id})=> {
 
         if (formdata.validation && !formdata.valid) {
             errorMessage = (
-                <div>{formdata.validationMessage}</div>
+                <div className="error-message">{formdata.validationMessage}</div>
             );
         }
         return errorMessage;

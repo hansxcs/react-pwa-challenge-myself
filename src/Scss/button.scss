@@ -1,12 +1,12 @@
 @import 'variables.scss';
 
 .btn{
-    // @include fix-container;
-    padding: .5em;
+    padding: 1em;
     border-radius: 5em;
     width: 100%;
     border: none;
-    font-size: 1.4em;
+    font-size: 0.9em;
+    font-weight: 300;
     background: linear-gradient(90deg, $gradient-1 0%, $gradient-2 50%, $gradient-3 100%);
     &--outline{
         background-color: none;

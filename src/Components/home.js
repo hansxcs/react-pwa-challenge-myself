@@ -1,10 +1,15 @@
 import React,{Component} from "react"
-import {Link} from 'react-router-dom'
-
+import Canvas from "../Canvas/canvas"
 class Home extends Component{
+    state={
+
+    };
+
     render(){
         return(
-            <div><Link to="/register">Register</Link> </div>
+            <div>Home
+                <Canvas/>
+            </div>
         )
     }
 }
