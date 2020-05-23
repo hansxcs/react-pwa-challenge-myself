@@ -11,7 +11,12 @@ class Register extends Component{
     state={
         registerError: "",
         loading: false,
-        filled:false,
+        filled:{
+            name:false,
+            email:false,
+            password:false,
+            password_confirmation:false,
+        },
         formData:{
             name:{
                 label: "Name",
@@ -110,6 +115,9 @@ class Register extends Component{
     
 
     updateForm = (element) =>{
+        const formIsFilled= {
+            ...this.state.filled,
+        }
         const newFormData = {
             ...this.state.formData,
         };
@@ -126,8 +134,15 @@ class Register extends Component{
         newElement.touched = element.blur;
         newFormData[element.id] = newElement;
         
+        if(newFormData[element.id].value != ""){
+            formIsFilled[element.id] = true
+        }else{
+            formIsFilled[element.id] = false
+        }
+
         this.setState({
             formData:newFormData,
+            filled:formIsFilled,
         })
 
     }
@@ -193,7 +208,7 @@ class Register extends Component{
                   }
                 this.setState({
                     loading:false,
-                    registerError:e.message
+                    registerError:e.response.message
                 })
             })
         }
@@ -232,7 +247,8 @@ class Register extends Component{
                         change={(event)=>this.updateForm(event)}
                     />
                     <Button 
-                        formdata={this.state.button.registerButton}  />
+                        formdata={this.state.button.registerButton} 
+                        filled={this.state.filled}/>
                     {this.showError()}
                 </form>
                 <div className="text text--bottom">I have an account! <Link className="text text--highlight " to="/login">Login</Link></div>

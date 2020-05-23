@@ -11,6 +11,10 @@ class Login extends Component{
     state={
         registerError: "",
         loading: false,
+        filled:{
+            email:false,
+            password:false,
+        },
         formData:{
             email:{
                 label: "Email",
@@ -79,6 +83,9 @@ class Login extends Component{
     
 
     updateForm = (element) =>{
+        const formIsFilled = {
+            ...this.state.filled,
+        }
         const newFormData = {
             ...this.state.formData,
         };
@@ -95,8 +102,15 @@ class Login extends Component{
         newElement.touched = element.blur;
         newFormData[element.id] = newElement;
 
+        if(newFormData[element.id].value != ""){
+            formIsFilled[element.id] = true
+        }else{
+            formIsFilled[element.id] = false
+        }
+
         this.setState({
             formData:newFormData,
+            filled:formIsFilled,
         })
 
     }
@@ -160,7 +174,7 @@ class Login extends Component{
                   }
                 this.setState({
                     loading:false,
-                    registerError:e.message
+                    registerError:e.response.data.message
                 })
             })
         }
@@ -190,7 +204,7 @@ class Login extends Component{
                     />
                     <Button 
                         formdata={this.state.button.registerButton} 
-                        change={(e)=>this.submitForm(e)}  />
+                        filled={this.state.filled}  />
                         
                     {this.showError()}
                 </form>
