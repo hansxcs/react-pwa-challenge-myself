@@ -7,10 +7,13 @@
     border: none;
     font-size: 0.9em;
     font-weight: 300;
-    background: linear-gradient(90deg, $gradient-1 0%, $gradient-2 50%, $gradient-3 100%);
+    background: transparent;
     &--outline{
-        background-color: none;
         border: 1px solid $gradient-2;
+    }
+
+    .active{
+        background: linear-gradient(90deg, $gradient-1 0%, $gradient-2 50%, $gradient-3 100%);
     }
 
 }

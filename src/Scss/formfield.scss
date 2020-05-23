@@ -10,6 +10,9 @@ $animation-duration: 0.4s;
 .container{
     @include fix-container;
     padding: 20vh 5%;
+    &--form{
+      width: 350px;
+    }
 }
 
 .form-field {
@@ -30,6 +33,7 @@ $animation-duration: 0.4s;
   }
   &--is-filled {
     .form-field__label {
+      color: white;
       @include label-active();
     }
   }
@@ -42,6 +46,7 @@ $animation-duration: 0.4s;
   padding: 18px 12px 0 0;
   position: absolute;
   top: 0;
+  color: $secondary-font;
   transition: all $animation-duration;
   width: 100%;
 }
@@ -71,7 +76,7 @@ $animation-duration: 0.4s;
   color:white;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid white;
   display: block;
   font-size: 1.2rem;
   margin-top: 24px;
@@ -83,8 +88,8 @@ $animation-duration: 0.4s;
   height: 150px;
 }
   
-.error-message{
-  color: #f73e3e;
+.error_message{
+  color: $neon;
   font-size: 0.8em ;
   margin-top: 10px;
 }

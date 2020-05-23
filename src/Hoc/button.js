@@ -5,7 +5,7 @@ const Button = ({formdata,change}) =>{
     var template = null;
     const renderButton = ()=>{
         template = (
-            <button type="submit" className="btn btn-primary" 
+            <button type="submit" className="btn btn--outline" 
                 >{formdata.value}</button>
         )
         return template;

@@ -34,7 +34,7 @@ const FormField =({formdata,change,id})=> {
 
         if (formdata.validation && !formdata.valid) {
             errorMessage = (
-                <div className="error-message">{formdata.validationMessage}</div>
+                <div className="error_message">{formdata.validationMessage}</div>
             );
         }
         return errorMessage;

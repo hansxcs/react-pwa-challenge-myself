@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom';
 import FormField from '../Hoc/formField'
 import Button from '../Hoc/button'
 import Api from "../api"
@@ -86,11 +87,11 @@ class Login extends Component{
         };
 
         newElement.value = element.event.target.value;
-        if(element.blur){
-            let validData = this.validate(newElement);
-            newElement.valid = validData[0];
-            newElement.validationMessage= validData[1];
-        } 
+
+        let validData = this.validate(newElement);
+        newElement.valid = validData[0];
+        newElement.validationMessage= validData[1];
+    
         newElement.touched = element.blur;
         newFormData[element.id] = newElement;
 
@@ -130,7 +131,6 @@ class Login extends Component{
         var formIsValid = true;
         
         for(let key in this.state.formData){
-            console.log(key);
             dataToSubmit[key] = this.state.formData[key].value;
         }
         for (let key in this.state.formData) {
@@ -169,14 +169,14 @@ class Login extends Component{
 
     showError = () =>
         this.state.registerError !== "" ? (
-            <div className="error-message">{this.state.registerError}</div>
+            <div className="error_message">{this.state.registerError}</div>
         ) : (
         ""
     );
 
     render() {
         return (
-            <div className="container">
+            <div className="container container--form">
                 <form onSubmit={(event)=>this.submitForm(event)}>
                     <FormField 
                         id={"email"} 
@@ -191,9 +191,10 @@ class Login extends Component{
                     <Button 
                         formdata={this.state.button.registerButton} 
                         change={(e)=>this.submitForm(e)}  />
-                </form>
-                
+                        
                     {this.showError()}
+                </form>
+                <div className="text text--bottom">Don't have an account ? <Link className="text text--highlight " to="/register">Register</Link></div>
             </div>
         )
     }

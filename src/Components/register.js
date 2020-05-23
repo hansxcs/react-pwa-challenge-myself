@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 import FormField from '../Hoc/formField'
 import Button from '../Hoc/button'
 import Api from "../api"
@@ -10,6 +11,7 @@ class Register extends Component{
     state={
         registerError: "",
         loading: false,
+        filled:false,
         formData:{
             name:{
                 label: "Name",
@@ -116,14 +118,14 @@ class Register extends Component{
         };
 
         newElement.value = element.event.target.value;
-        if(element.blur){
-            let validData = this.validate(newElement);
-            newElement.valid = validData[0];
-            newElement.validationMessage= validData[1];
-        } 
+
+        let validData = this.validate(newElement);
+        newElement.valid = validData[0];
+        newElement.validationMessage= validData[1];
+
         newElement.touched = element.blur;
         newFormData[element.id] = newElement;
-
+        
         this.setState({
             formData:newFormData,
         })
@@ -160,7 +162,6 @@ class Register extends Component{
         var formIsValid = true;
         
         for(let key in this.state.formData){
-            console.log(key);
             dataToSubmit[key] = this.state.formData[key].value;
         }
         for (let key in this.state.formData) {
@@ -201,14 +202,14 @@ class Register extends Component{
 
     showError = () =>
         this.state.registerError !== "" ? (
-            <div className="error-message">{this.state.registerError}</div>
+            <div className="error_message">{this.state.registerError}</div>
         ) : (
         ""
     );
 
     render() {
         return (
-            <div className="container">
+            <div className="container container--form">
                 <form onSubmit={(event)=>this.submitForm(event)}>
                     <FormField 
                         id={"name"} 
@@ -231,10 +232,10 @@ class Register extends Component{
                         change={(event)=>this.updateForm(event)}
                     />
                     <Button 
-                        formdata={this.state.button.registerButton} 
-                        change={(e)=>this.submitForm(e)}  />
+                        formdata={this.state.button.registerButton}  />
                     {this.showError()}
                 </form>
+                <div className="text text--bottom">I have an account! <Link className="text text--highlight " to="/login">Login</Link></div>
             </div>
         )
     }
