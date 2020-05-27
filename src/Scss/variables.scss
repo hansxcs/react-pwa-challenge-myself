@@ -19,20 +19,33 @@ $h1 : 3em;
 $h2 : 1.5em;
 $h3 : 1.2em;
 $h4 : 1em;
-$h5 : 0.85em;
+$h5 : 0.75em;
 
-@mixin fix-container{
+// Z-INDEX
+$z-bottom:-1000;
+$z-top:1000;
+
+// FUNCTION
+@mixin fix-container {
     margin: 0 auto;
     width: 75%;
     box-sizing: border-box;
 }
 
+@function randomNum($min, $max) {
+    $rand: random();
+    $randomNum: $min + floor($rand * (($max - $min) + 1));
+
+    @return $randomNum;
+}
+
 //GLOBAL
-.text{
+.text {
     margin: 20px 0;
     text-align: center;
     text-decoration: none;
-    &--highlight{
+
+    &--highlight {
         color: $gradient-1;
     }
 }

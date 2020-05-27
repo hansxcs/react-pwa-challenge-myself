@@ -1,6 +1,6 @@
 @import 'variables.scss';
 
-.btn{
+.btn {
     padding: 1em;
     border-radius: 5em;
     width: 100%;
@@ -8,12 +8,13 @@
     font-size: 0.9em;
     font-weight: 300;
     background: transparent;
-    &--outline{
+
+    &--outline {
         background: transparent;
         border: 1px solid $gradient-2;
     }
 
-    &--active{
+    &--active {
         cursor: pointer;
         border: none;
         background: linear-gradient(90deg, $gradient-1 0%, $gradient-2 50%, $gradient-3 100%);

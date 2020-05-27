@@ -1,0 +1,70 @@
+@import 'variables.scss';
+
+$columns: 5;
+$anim-dur: 1000ms;
+$anim-delay: $anim-dur / 5;
+
+.loader {
+    &--container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba($color: #000000, $alpha: 0.5);
+        transition: all 1s ease;
+
+        z-index: $z-top;
+
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            top: 50%;
+
+            left: 50%;
+            position: relative;
+            transform: translate(-50%, -50%);
+        }
+
+        .bar {
+            padding: 1em;
+            margin: 1em;
+            left: 50%;
+            right: 0;
+            top: 50%;
+            bottom: 0;
+            border-radius: 0%;
+            box-shadow: 0 0 0 .1vw cyan,
+                0 0 1vw 0 cyan,
+                inset 0 0 .5vw 0 cyan;
+            transform: translate(-50%, -50%);
+            animation: bars $anim-dur backwards infinite ease-in-out alternate;
+
+            @for $i from 1 through $columns {
+                &--#{$i} {
+
+                    // height: #{$i}em;
+                    // top: percentage(0.5 - ($i * 0.01));
+                    // left: percentage(0.31 + ($i * 0.06));
+                    background-color: transparent;
+                    transform: scale(#{$i * 5});
+                    animation-delay: $anim-delay * $i;
+                }
+            }
+
+        }
+    }
+}
+
+@keyframes bars {
+    0% {
+        opacity: 0.5;
+        transform: scale(0.4);
+    }
+
+    100% {
+        opacity: 1;
+        background-color: $neon;
+        transform: scale(1.0);
+    }
+}

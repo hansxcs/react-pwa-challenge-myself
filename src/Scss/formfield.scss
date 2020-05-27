@@ -1,24 +1,27 @@
 @import 'variables.scss';
 
 $animation-duration: 0.4s;
+$breakpoint-tablet: 768px;
 
 @mixin label-active() {
-    font-size: $h5;
-    transform: translateY(-18px);
+  font-size: $h5;
+  transform: translateY(-18px);
 }
 
-.container{
-    @include fix-container;
-    padding: 20vh 5%;
-    &--form{
-      width: 350px;
-    }
+
+.container {
+  @include fix-container;
+  padding: 20vh 5%;
+
+  &--form {
+    width: 350px;
+  }
 }
 
 .form-field {
   display: block;
   margin-bottom: 16px;
-  
+
   &--is-active {
     .form-field__control {
       &::after {
@@ -26,11 +29,13 @@ $animation-duration: 0.4s;
         transform: scaleX(150);
       }
     }
+
     .form-field__label {
       color: $gradient-1;
       @include label-active();
     }
   }
+
   &--is-filled {
     .form-field__label {
       color: white;
@@ -38,6 +43,7 @@ $animation-duration: 0.4s;
     }
   }
 }
+
 .form-field__label {
   display: block;
   font-weight: normal;
@@ -45,17 +51,19 @@ $animation-duration: 0.4s;
   margin: 0;
   padding: 18px 12px 0 0;
   position: absolute;
-  top: 0;
+  top: 6px;
   color: $secondary-font;
   transition: all $animation-duration;
   width: 100%;
+  z-index: -1;
 }
+
 .form-field__control {
   border-radius: 8px 8px 0 0;
   overflow: hidden;
   position: relative;
   width: 100%;
-  
+
   &::after {
     border-bottom: 2px solid $gradient-1;
     bottom: 0;
@@ -70,10 +78,11 @@ $animation-duration: 0.4s;
     width: 1%;
   }
 }
+
 .form-field__input,
 .form-field__textarea {
   appearance: none;
-  color:white;
+  color: white;
   background: transparent;
   border: 0;
   border-bottom: 1px solid white;
@@ -84,12 +93,20 @@ $animation-duration: 0.4s;
   padding: 0 12px 10px 0px;
   width: 100%;
 }
+
 .form-field__textarea {
   height: 150px;
 }
-  
-.error_message{
+
+.error_message {
   color: $neon;
-  font-size: 0.8em ;
+  font-size: 0.8em;
   margin-top: 10px;
+}
+
+
+@media (min-width: $breakpoint-tablet) {
+  .container {
+    padding: 20vh 0;
+  }
 }

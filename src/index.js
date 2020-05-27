@@ -3,11 +3,10 @@ import ReactDOM from 'react-dom';
 import './Scss/index.scss';
 import Router from './routes';
 import * as serviceWorker from './serviceWorker';
-import authed from "./Auth/auth"
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router authed={authed}/>
+    <Router />
   </React.StrictMode>,
   document.getElementById('root')
 );
