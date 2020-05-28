@@ -1,0 +1,30 @@
+@import "../../node_modules/react-alice-carousel/lib/scss/alice-carousel.scss";
+@import 'variables.scss';
+
+
+.alice-carousel {
+    &__stage-item {
+        background: $bg-neon;
+    }
+}
+
+.goal {
+    &--meter {
+        background-color: $neon;
+    }
+
+    &--wrapper {
+        background-color: $base-color;
+        height: 30em;
+        margin: 30px;
+        border-radius: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h3 {
+            background-color: $gradient-1;
+        }
+    }
+}
