@@ -9,6 +9,7 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
+let deferredPrompt;
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -20,7 +21,9 @@ const isLocalhost = Boolean(
   )
 );
 
+
 export function register(config) {
+
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
@@ -51,20 +54,26 @@ export function register(config) {
         registerValidSW(swUrl, config);
       }
 
-      let deferredPrompt;
-
       window.addEventListener('beforeinstallprompt', (e) => {
         // Prevent the mini-infobar from appearing on mobile
         e.preventDefault();
         // Stash the event so it can be triggered later.
         deferredPrompt = e;
         // Update UI notify the user they can install the PWA
-        // showInstallPromotion();
-        deferredPrompt.prompt();
+        showInstallPromotion();
       });
+
+
 
     });
   }
+}
+
+
+function showInstallPromotion() {
+  console.log("want to install ?")
+
+  deferredPrompt.prompt();
 }
 
 function registerValidSW(swUrl, config) {

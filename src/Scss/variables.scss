@@ -6,6 +6,7 @@ $secondary-font: #c6c5c5;
 
 // MAIN COLOUR
 $neon: #6EFAFF;
+$dark-module:#26304B;
 $bg-neon:#40AEA5;
 
 // GRADIENT THEME
@@ -17,7 +18,7 @@ $gradient-4: #FFE577;
 // SIZE
 $h1 : 3em;
 $h2 : 1.5em;
-$h3 : 1.2em;
+$h3 : calc(1.2em + 3%);
 $h4 : 1em;
 $h5 : 0.75em;
 
