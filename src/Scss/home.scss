@@ -3,11 +3,28 @@
 @import 'variables.scss';
 
 
-// .alice-carousel {
-//     &__stage-item {
-//         background: $bg-neon;
-//     }
-// }
+.alice-carousel {
+
+    &__wrapper {
+        height: 67vh;
+    }
+
+    &__dots {
+        margin: 0;
+
+        &-item {
+            background-color: white;
+            margin: 0 5px;
+
+        }
+
+        .__active {
+            background-color: $gradient-1;
+        }
+
+    }
+
+}
 
 .goal {
     &--meter {
@@ -18,7 +35,7 @@
     }
 
     &--title {
-        font-size: $h3;
+        font-size: calc($h3 + 3%);
         max-width: 80vw;
         text-align: center;
         font-weight: 300;
@@ -26,8 +43,8 @@
 
     &--wrapper {
         background-color: $base-color;
-        height: 70vh;
-        margin: 10vh 12vw;
+        height: 54vh;
+        margin: 10vh 18vw;
         border-radius: 25px;
         display: flex;
         flex-direction: column;

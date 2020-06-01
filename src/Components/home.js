@@ -1,8 +1,9 @@
 import React, { Component } from "react"
-import FontAwesome from "react-fontawesome"
-import "../Scss/home.scss"
+// import FontAwesome from "react-fontawesome"
 import AliceCarousel from 'react-alice-carousel'
 import RoundProgressBar from "../Hoc/circularBar"
+import Button from "../Hoc/button"
+import "../Scss/home.scss"
 
 // import Canvas from "../Canvas/canvas"
 // import Sidebar from "../Hoc/sidebar"
@@ -19,7 +20,15 @@ RoundProgressBar.defaultProps = {
 class Home extends Component {
     state = {
         visible: false,
-        percentage: 80
+        percentage: 80,
+        button: {
+            checkIn: {
+                value: "CHECK IN",
+            },
+            failed: {
+                value: "I LOST MY CHALLENGE"
+            }
+        }
     };
 
 
@@ -58,8 +67,9 @@ class Home extends Component {
                 >
                     {this.renderGoal()}
                 </AliceCarousel>
-                <FontAwesome name="clock-o" />
-                {/* <button onClick={() => this.toggleSidebar()} >click me</button> */}
+                <div className="container">
+                    <Button formdata={this.state.button.checkIn} />
+                </div>
             </div>
         )
     }

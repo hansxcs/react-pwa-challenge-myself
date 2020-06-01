@@ -11,7 +11,7 @@ $breakpoint-tablet: 768px;
 
 .container {
   @include fix-container;
-  padding: 20vh 5%;
+  padding: 5vh 5%;
 
   &--form {
     width: 350px;

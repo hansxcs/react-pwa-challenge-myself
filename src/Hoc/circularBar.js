@@ -39,17 +39,7 @@ function RoundProgressBar(props) {
                     cx={(props.size / 2)}
                     cy={props.size / 2}
                     r={radius + 23}
-                    opacity={0.3}
-                />
-                <circle
-                    className="ripple ripple--3"
-                    fill='#40AEA5'
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    cx={(props.size / 2)}
-                    cy={props.size / 2}
-                    r={radius + 23}
-                    opacity={0.3}
+                    opacity={0.2}
                 />
                 <circle
                     fill={'none'}

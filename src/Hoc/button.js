@@ -4,11 +4,14 @@ import "../Scss/button.scss"
 const Button = ({ formdata, filled }) => {
     var submitEnable = true;
     var template = null;
-    Object.values(filled).map((value) => {
-        if (!value)
-            submitEnable = false;
-        return template;
-    })
+    if (filled != null) {
+
+        Object.values(filled).map((value) => {
+            if (!value)
+                submitEnable = false;
+            return template;
+        })
+    }
 
     const renderButton = () => {
         template = (
