@@ -1,27 +1,41 @@
 @import "../../node_modules/react-alice-carousel/lib/scss/alice-carousel.scss";
+// https://reactjsexample.com/a-react-component-for-building-content-galleries-and-carousels/
 @import 'variables.scss';
 
 
-.alice-carousel {
-    &__stage-item {
-        background: $bg-neon;
-    }
-}
+// .alice-carousel {
+//     &__stage-item {
+//         background: $bg-neon;
+//     }
+// }
 
 .goal {
     &--meter {
-        background-color: $neon;
+        border: 20px solid $neon;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+    }
+
+    &--title {
+        font-size: $h3;
+        max-width: 80vw;
+        text-align: center;
+        font-weight: 300;
     }
 
     &--wrapper {
         background-color: $base-color;
-        height: 30em;
-        margin: 30px;
+        height: 70vh;
+        margin: 10vh 12vw;
         border-radius: 25px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        -webkit-box-shadow: 0px 3px 5px 2px $neon;
+        -moz-box-shadow: 0px 3px 5px 2px $neon;
+        box-shadow: 0px 3px 5px 2px $neon;
 
         h3 {
             background-color: $gradient-1;
