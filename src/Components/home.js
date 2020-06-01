@@ -19,10 +19,6 @@ RoundProgressBar.defaultProps = {
 class Home extends Component {
     state = {
         visible: false,
-        size: {
-            width: window.innerHeight / 2,
-            height: window.innerHeight / 2
-        },
         percentage: 80
     };
 
