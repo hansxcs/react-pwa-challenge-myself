@@ -207,11 +207,17 @@ class Register extends Component {
                         console.log(e.response.data);
                         console.log(e.response.status);
                         console.log(e.response.headers);
+                        this.setState({
+                            loading: false,
+                            registerError: e.response.data.message
+                        })
+                    } else {
+                        this.setState({
+                            loading: false,
+                            registerError: '500 Internal Server'
+                        })
                     }
-                    this.setState({
-                        loading: false,
-                        registerError: e.response.message
-                    })
+
                 })
         }
 

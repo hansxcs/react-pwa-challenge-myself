@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
 import FormField from '../Hoc/formField';
 import Button from '../Hoc/button';
 import Loader from '../Hoc/loader';
@@ -7,54 +6,98 @@ import Api from "../api";
 import Cookies from 'universal-cookie';
 import '../Scss/formfield.scss';
 
-
-class Login extends Component {
+class AddGoal extends Component {
     state = {
-        registerError: "",
+        addGoalError: "",
         loading: false,
         filled: {
-            email: false,
-            password: false,
+            goal_name: false,
+            description: false,
+            total_day: false,
+            auto_checkin: true,
+            notify_me: true,
         },
         formData: {
-            email: {
-                label: "Email",
+            goal_name: {
+                label: "Goal Name",
                 element: "input",
                 value: "",
                 config: {
-                    name: "email",
-                    type: "email",
+                    name: "goal_name",
+                    type: "text",
                 },
                 validation: {
                     required: true,
-                    email: true,
                 },
                 valid: false,
                 touched: false,
                 validationMessage: "",
             },
-            password: {
-                label: "Password",
-                element: "input",
+            description: {
+                label: "Description",
+                element: "textarea",
                 value: "",
                 config: {
-                    name: "password",
-                    type: "password",
+                    name: "description",
                 },
                 validation: {
                     required: true,
                 },
                 valid: false,
                 touched: false,
+                validationMessage: "",
+            },
+            total_day: {
+                label: "Total Day",
+                element: "input",
+                value: "",
+                config: {
+                    name: "total_day",
+                    type: "number",
+                },
+                validation: {
+                    required: true,
+                },
+                valid: false,
+                touched: false,
+                validationMessage: "",
+            },
+            auto_checkin: {
+                label: "Auto Check-In",
+                element: "checkbox",
+                value: "",
+                config: {
+                    name: "auto_checkin",
+                    type: "checkbox",
+                    checked: false,
+                },
+                validation: {
+                },
+                valid: true,
+                touched: true,
+                validationMessage: "",
+            },
+            notify_me: {
+                label: "Notify Me",
+                element: "checkbox",
+                config: {
+                    name: "notify_me",
+                    type: "checkbox",
+                    checked: false,
+                },
+                validation: {
+                },
+                valid: true,
+                touched: true,
                 validationMessage: "",
             },
         },
         button: {
-            registerButton: {
-                value: "LOGIN",
+            addButton: {
+                value: "ADD NEW GOAL",
             },
         }
-    }
+    };
 
     componentDidMount() {
         const setActive = (el, active) => {
@@ -82,7 +125,6 @@ class Login extends Component {
         )
     }
 
-
     updateForm = (element) => {
         const formIsFilled = {
             ...this.state.filled,
@@ -102,18 +144,30 @@ class Login extends Component {
 
         newElement.touched = element.blur;
         newFormData[element.id] = newElement;
-
-        if (newFormData[element.id].value !== "") {
-            formIsFilled[element.id] = true
-        } else {
-            formIsFilled[element.id] = false
+        if (element.id !== "auto_checkin" && element.id !== "notify_me") {
+            if (newFormData[element.id].value !== "") {
+                formIsFilled[element.id] = true
+            } else {
+                formIsFilled[element.id] = false
+            }
         }
-
         this.setState({
             formData: newFormData,
             filled: formIsFilled,
         })
 
+    }
+
+    handleCheckboxChange = (element) => {
+        const newFormData = {
+            ...this.state.formData,
+        };
+        const newElement = {
+            ...newFormData[element.id]
+        };
+        newElement.config.checked = element.event.target.checked;
+        newFormData[element.id] = newElement;
+        this.setState({ formData: newFormData })
     }
 
     validate = (element) => {
@@ -144,54 +198,57 @@ class Login extends Component {
         event.preventDefault();
         var dataToSubmit = {};
         var formIsValid = true;
-
+        dataToSubmit['start_Date'] = new Date();
         for (let key in this.state.formData) {
             dataToSubmit[key] = this.state.formData[key].value;
+            if (this.state.formData[key].element === "checkbox") {
+                dataToSubmit[key] = this.state.formData[key].config.checked;
+            }
         }
         for (let key in this.state.formData) {
             formIsValid = this.state.formData[key].valid && formIsValid;
         }
+
         if (formIsValid) {
             this.setState({
                 loading: true,
-                registerError: ""
+                addGoalError: ""
             })
-            Api.post('/user/login', {
-                email: dataToSubmit.email,
-                password: dataToSubmit.password
+            const cookies = new Cookies();
+            var token = cookies.get('challengemyself_session')
+            var today = new Date();
+
+            Api.post('/goal/store', {
+                name: dataToSubmit.goal_name,
+                is_not_lazy: dataToSubmit.auto_checkin,
+                started_at: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
+                total_day: dataToSubmit.total_day,
             },
                 {
-                    headers: { 'content-type': 'application/json' }
+                    headers: {
+                        'content-type': 'application/json',
+                        'Authorization': token,
+                    }
                 }).then(res => {
-                    let d = new Date();
-                    d.setTime(d.getTime() + (60 * 60 * 1000));
-                    const cookies = new Cookies();
-                    cookies.set('challengemyself_session', 'Bearer ' + res.data.access_token, { path: '/', expires: d });
                     this.props.history.push("/home");
                 }).catch(e => {
                     if (e.response) {
                         console.log(e.response.data);
                         console.log(e.response.status);
                         console.log(e.response.headers);
-                        this.setState({
-                            loading: false,
-                            registerError: e.response.data.message
-                        })
-                    } else {
-                        this.setState({
-                            loading: false,
-                            registerError: '500 Internal Server'
-                        })
                     }
-
+                    this.setState({
+                        loading: false,
+                        addGoalError: e.response.data.message
+                    })
                 })
         }
 
     }
 
     showError = () =>
-        this.state.registerError !== "" ? (
-            <div className="error_message">{this.state.registerError}</div>
+        this.state.addGoalError !== "" ? (
+            <div className="error_message">{this.state.addGoalError}</div>
         ) : (
                 ""
             );
@@ -203,32 +260,46 @@ class Login extends Component {
                 ""
             );
 
+
     render() {
         return (
             <div className="container container--form">
                 <form onSubmit={(event) => this.submitForm(event)}>
-                    <FormField
-                        id={"email"}
-                        formdata={this.state.formData.email}
+                    add Goal
+                <FormField
+                        id={"goal_name"}
+                        formdata={this.state.formData.goal_name}
                         change={(event) => this.updateForm(event)}
                     />
                     <FormField
-                        id={"password"}
-                        formdata={this.state.formData.password}
+                        id={"description"}
+                        formdata={this.state.formData.description}
                         change={(event) => this.updateForm(event)}
                     />
-                    <Button
-                        formdata={this.state.button.registerButton}
-                        filled={this.state.filled} />
+                    <FormField
+                        id={"total_day"}
+                        formdata={this.state.formData.total_day}
+                        change={(event) => this.updateForm(event)}
+                    />
+                    <FormField
+                        id={"auto_checkin"}
+                        formdata={this.state.formData.auto_checkin}
+                        change={(event) => this.handleCheckboxChange(event)}
+                    />
+                    <FormField
+                        id={"notify_me"}
+                        formdata={this.state.formData.notify_me}
+                        change={(event) => this.handleCheckboxChange(event)}
+                    />
 
+                    <Button
+                        formdata={this.state.button.addButton}
+                        filled={this.state.filled} />
                     {this.showError()}
                 </form>
-                <div className="text text--bottom">Don't have an account ? <Link className="text text--highlight " to="/register">Register</Link></div>
-
-                {this.loading()}
             </div>
         )
     }
 }
 
-export default Login;
+export default AddGoal;

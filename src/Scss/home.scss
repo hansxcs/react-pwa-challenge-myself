@@ -39,6 +39,10 @@
         max-width: 80vw;
         text-align: center;
         font-weight: 300;
+
+        &_mt {
+            margin-top: 5%;
+        }
     }
 
     &--wrapper {

@@ -1,7 +1,7 @@
 @import 'variables.scss';
 
-*{
-  color:white;
+* {
+  color: white;
 }
 
 body {
@@ -11,7 +11,5 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: $base-color;
-  overflow: hidden;
+  // overflow: hidden;
 }
-
-

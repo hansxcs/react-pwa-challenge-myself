@@ -83,12 +83,12 @@ function RoundProgressBar(props) {
                     textAnchor="middle"
                     style={{
                         fill: "white",
-                        fontSize: '4.5rem',
+                        fontSize: '5.5rem',
                         fontFamily: 'Roboto, sans-serif',
                         fontWeight: 400,
                     }}
                 >
-                    {`${props.value}`}
+                    {`${props.max - props.value}`}
                 </text>
                 <text
                     x="50%"
