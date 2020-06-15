@@ -51,6 +51,12 @@ class Home extends Component {
         })
         const cookies = new Cookies();
         var token = cookies.get('challengemyself_session')
+        console.log(document.cookie);
+        // if(getCookie === undefined || ((exp - new Date().getTime()) < 0)) {
+        //     let url = 'http://localhost:8080/login.html'
+        //     window.location.href =  url
+        //     console.log(url)
+        // } 
         Api.get('/goal/index',
             {
                 headers: {
@@ -65,13 +71,17 @@ class Home extends Component {
                 })
             }).catch(e => {
                 if (e.response) {
-                    console.log(e.response.data);
-                    console.log(e.response.status);
-                    console.log(e.response.headers);
-                    this.setState({
-                        loading: false,
-                        registerError: e.response.data.message
-                    })
+                    if (e.response.status === 401) {
+                        this.props.history.push("/");
+                    } else {
+                        console.log(e.response.data);
+                        console.log(e.response.status);
+                        console.log(e.response.headers);
+                        this.setState({
+                            loading: false,
+                            registerError: e.response.data.message
+                        })
+                    }
                 } else {
                     this.setState({
                         loading: false,
