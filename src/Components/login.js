@@ -164,7 +164,7 @@ class Login extends Component {
                     headers: { 'content-type': 'application/json' }
                 }).then(res => {
                     let d = new Date();
-                    d.setTime(d.getTime() + (60 * 60 * 1000));
+                    d.setTime(d.getTime + (60 * 60 * 1000));
                     const cookies = new Cookies();
                     cookies.set('challengemyself_session', 'Bearer ' + res.data.access_token, { path: '/', expires: d });
                     this.props.history.push("/home");
@@ -219,6 +219,7 @@ class Login extends Component {
                     />
                     <Button
                         formdata={this.state.button.registerButton}
+                        type="form"
                         filled={this.state.filled} />
 
                     {this.showError()}

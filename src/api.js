@@ -1,5 +1,6 @@
 import axios from 'axios';
 var url = {
+    proxy: "",
     local: "http://127.0.0.1:8000/api/v1",
     prod: "https://challengemyself.andisusanto.tech/api/v1",
 };

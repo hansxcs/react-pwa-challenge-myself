@@ -26,18 +26,18 @@ class Home extends Component {
         visible: false,
         is_fetching: true,
         loading: false,
-        percentage: 80,
         data: [],
         button: {
             checkIn: {
-                value: "CHECK IN",
+                text: "CHECK IN",
+                iteration: 0,
+                check: false,
             },
             failed: {
-                value: "I LOST MY CHALLENGE"
+                text: "I LOST MY CHALLENGE"
             }
         }
     };
-
     loading = () =>
         this.state.loading ? (
             <Loader />
@@ -45,18 +45,14 @@ class Home extends Component {
                 ""
             );
 
+
     componentWillMount() {
         this.setState({
             loading: true
         })
         const cookies = new Cookies();
         var token = cookies.get('challengemyself_session')
-        console.log(document.cookie);
-        // if(getCookie === undefined || ((exp - new Date().getTime()) < 0)) {
-        //     let url = 'http://localhost:8080/login.html'
-        //     window.location.href =  url
-        //     console.log(url)
-        // } 
+        var text = this.state.button.checkIn.text;
         Api.get('/goal/index',
             {
                 headers: {
@@ -64,10 +60,18 @@ class Home extends Component {
                     'Authorization': token,
                 }
             }).then(res => {
+                if (res.data.goals[0].check_in) text = 'CHECKED';
                 this.setState({
                     is_fetching: false,
                     loading: false,
                     data: res.data.goals,
+                    button: {
+                        checkIn: {
+                            text,
+                            check: res.data.goals[0].check_in,
+                            iteration: 0,
+                        }
+                    }
                 })
             }).catch(e => {
                 if (e.response) {
@@ -92,13 +96,32 @@ class Home extends Component {
             })
     }
 
+    onSlideChanged(e) {
+        var text = 'CHECK IN',
+            check = false
+        if (this.state.data[e.item].check_in) {
+            text = 'CHECKED'
+            check = true
+        }
+        this.setState({
+            button: {
+                checkIn: {
+                    text,
+                    check,
+                    iteration: e.item
+                }
+            }
+
+        })
+    }
+
     renderGoal = () => {
         var template = [];
         for (var i = 0; i < this.state.data.length; i++) {
             template.push(
                 <div className="goal--wrapper" key={i}>
                     <RoundProgressBar
-                        value={1}
+                        value={this.state.data[i].current_day}
                         stroke={'#6EFAFF'}
                         max={this.state.data[i].total_day}
                         strokeWidth={15}
@@ -118,22 +141,78 @@ class Home extends Component {
         return this.props.history.push("/add-goal");
     }
 
+    handleCheckIn = async (data, iteration) => {
+        let checkIn = this.state.button.checkIn;
+        checkIn.text = "CHECKED";
+        checkIn.check = true;
+        this.setState({
+            button: {
+                checkIn
+            }
+        })
+        const cookies = new Cookies();
+        var token = cookies.get('challengemyself_session');
+        await Api.post(`/goal/${data.id}/check-in`,
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': token,
+                }
+            }).then(res => {
+                data.check_in = true;
+                let datas = [...this.state.data];
+                datas[iteration] = data;
+
+                this.setState({
+                    data: datas,
+                });
+                console.log(res)
+            }).catch(e => {
+                if (e.response) {
+                    if (e.response.status === 401) {
+                        // this.props.history.push("/");
+                    } else {
+                        console.log(e.response.data);
+                        console.log(e.response.status);
+                        console.log(e.response.headers);
+                        this.setState({
+                            loading: false,
+                            registerError: e.response.data.message
+                        })
+                    }
+                } else {
+                    this.setState({
+                        loading: false,
+                        registerError: '500 Internal Server'
+                    })
+                }
+
+            })
+
+
+    }
+
     render() {
         return (
             <div>
                 <button onClick={() => this.addgoal()}> Add Goal</button>
                 {this.state.is_fetching ? "Please Wait..." :
                     <AliceCarousel
-                        startIndex={1}
+                        startIndex={0}
                         fadeOutAnimation={true}
                         mouseDragEnabled={true}
                         buttonsDisabled={true}
+                        onSlideChanged={(event) => this.onSlideChanged(event)}
                     >
                         {this.renderGoal()}
                     </AliceCarousel>
                 }
                 <div className="container">
-                    <Button formdata={this.state.button.checkIn} />
+                    <Button
+                        formdata={this.state.button.checkIn}
+                        type="checkin"
+                        handle={(event, iteration) => this.handleCheckIn(event, iteration)}
+                        data={this.state.data} />
                 </div>
                 {this.loading()}
             </div>

@@ -263,6 +263,7 @@ class Register extends Component {
                     />
                     <Button
                         formdata={this.state.button.registerButton}
+                        type="form"
                         filled={this.state.filled} />
                     {this.showError()}
                 </form>
