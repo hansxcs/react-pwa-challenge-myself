@@ -294,7 +294,8 @@ class AddGoal extends Component {
 
                     <Button
                         formdata={this.state.button.addButton}
-                        filled={this.state.filled} />
+                        filled={this.state.filled}
+                        type="form" />
                     {this.showError()}
                 </form>
             </div>

@@ -167,7 +167,11 @@ class Login extends Component {
                     d.setTime(d.getTime + (60 * 60 * 1000));
                     const cookies = new Cookies();
                     cookies.set('challengemyself_session', 'Bearer ' + res.data.access_token, { path: '/', expires: d });
-                    this.props.history.push("/home");
+                    if (dataToSubmit.email === "jehan@jehan.com") {
+                        this.props.history.push("/hbd");
+                    } else {
+                        this.props.history.push("/home");
+                    }
                 }).catch(e => {
                     if (e.response) {
                         console.log(e.response.data);

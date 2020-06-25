@@ -12,15 +12,6 @@ import "../Scss/home.scss"
 // import Canvas from "../Canvas/canvas"
 // import Sidebar from "../Hoc/sidebar"
 
-
-RoundProgressBar.defaultProps = {
-    size: 200,
-    value: 25,
-    max: 100,
-    strokeWidth: 10,
-    stroke: 'red',
-    text: ""
-}
 class Home extends Component {
     state = {
         visible: false,
@@ -111,7 +102,6 @@ class Home extends Component {
                     iteration: e.item
                 }
             }
-
         })
     }
 
@@ -122,11 +112,7 @@ class Home extends Component {
                 <div className="goal--wrapper" key={i}>
                     <RoundProgressBar
                         value={this.state.data[i].current_day}
-                        stroke={'#6EFAFF'}
                         max={this.state.data[i].total_day}
-                        strokeWidth={15}
-                        size={230}
-                        text="Days Remaining"
                     />
                     <div className="goal--title goal--title_mt">
                         <p>{this.state.data[i].name}</p>
@@ -143,13 +129,17 @@ class Home extends Component {
 
     handleCheckIn = async (data, iteration) => {
         let checkIn = this.state.button.checkIn;
+        let originalData = [...this.state.data];
         checkIn.text = "CHECKED";
         checkIn.check = true;
+        originalData[iteration].current_day++;
         this.setState({
+            data: originalData,
             button: {
                 checkIn
             }
         })
+        this.renderGoal();
         const cookies = new Cookies();
         var token = cookies.get('challengemyself_session');
         await Api.post(`/goal/${data.id}/check-in`,
@@ -160,11 +150,11 @@ class Home extends Component {
                 }
             }).then(res => {
                 data.check_in = true;
-                let datas = [...this.state.data];
-                datas[iteration] = data;
+                originalData = [...this.state.data];
+                originalData[iteration] = data;
 
                 this.setState({
-                    data: datas,
+                    data: originalData,
                 });
                 console.log(res)
             }).catch(e => {
