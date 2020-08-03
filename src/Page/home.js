@@ -1,16 +1,17 @@
 import React, { Component } from "react"
-// import FontAwesome from "react-fontawesome"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import AliceCarousel from 'react-alice-carousel'
-import RoundProgressBar from "../Hoc/circularBar"
-import Button from "../Hoc/button"
-import Loader from '../Hoc/loader';
+import RoundProgressBar from "../Component/circularBar"
+import Button from "../Component/button"
+import Loader from '../Component/loader';
 import Api from "../api"
 import Cookies from 'universal-cookie'
 
 import "../Scss/home.scss"
 
 // import Canvas from "../Canvas/canvas"
-// import Sidebar from "../Hoc/sidebar"
+// import Sidebar from "../Component/sidebar"
 
 class Home extends Component {
     state = {
@@ -185,7 +186,8 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <button onClick={() => this.addgoal()}> Add Goal</button>
+
+                <div className="add-button" onClick={() => this.addgoal()}><FontAwesomeIcon size="lg" icon={faPlus} /></div>
                 {this.state.is_fetching ? "Please Wait..." :
                     <AliceCarousel
                         startIndex={0}

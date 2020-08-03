@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import FormField from '../Hoc/formField';
-import Button from '../Hoc/button';
-import Loader from '../Hoc/loader';
+import FormField from '../Component/formField';
+import Button from '../Component/button';
+import Loader from '../Component/loader';
 import Api from "../api";
 import Cookies from 'universal-cookie';
 import '../Scss/formfield.scss';
