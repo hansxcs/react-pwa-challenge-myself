@@ -158,16 +158,30 @@ class AddGoal extends Component {
 
     }
 
-    handleCheckboxChange = (element) => {
-        const newFormData = {
-            ...this.state.formData,
-        };
-        const newElement = {
-            ...newFormData[element.id]
-        };
-        newElement.config.checked = element.event.target.checked;
-        newFormData[element.id] = newElement;
-        this.setState({ formData: newFormData })
+    handleCheckboxChange = (element, isNotify) => {
+        if (isNotify) {
+            var permission = Notification.permission;
+            if (permission !== 'granted') {
+                permission = Notification.requestPermission().then((res) => {
+                    permission = res;
+                }).catch((err) => {
+                    console.log(err);
+                })
+            }
+        }
+        if ((permission === 'granted' && isNotify) || !isNotify) {
+            const newFormData = {
+                ...this.state.formData,
+            };
+            const newElement = {
+                ...newFormData[element.id]
+            };
+            newElement.config.checked = element.event.target.checked;
+            newFormData[element.id] = newElement;
+            this.setState({ formData: newFormData })
+        } else if (permission !== 'granted') {
+            alert('Please allow your Notification to use this feature');
+        }
     }
 
     validate = (element) => {
@@ -284,12 +298,12 @@ class AddGoal extends Component {
                     <FormField
                         id={"auto_checkin"}
                         formdata={this.state.formData.auto_checkin}
-                        change={(event) => this.handleCheckboxChange(event)}
+                        change={(event) => this.handleCheckboxChange(event, 0)}
                     />
                     <FormField
                         id={"notify_me"}
                         formdata={this.state.formData.notify_me}
-                        change={(event) => this.handleCheckboxChange(event)}
+                        change={(event) => this.handleCheckboxChange(event, true)}
                     />
 
                     <Button

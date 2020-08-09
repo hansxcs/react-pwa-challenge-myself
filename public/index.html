@@ -34,8 +34,15 @@
     <!-- SCRIPT -->
     <!-- <script src="plugins/p5/p5.min.js"></script>
     <script src="plugins/p5/addons/p5.dom.min.js"></script> -->
-    <!-- END SCRIPT -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
 
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-analytics.js"></script>
+
+    <!-- END SCRIPT -->
+      
     <title>React App</title>
   </head>
   <body>
@@ -52,4 +59,20 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+ 
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBprp40nQhqF7qZBOk33V8sMuGgJSdnB80",
+    authDomain: "react-7a4e1.firebaseapp.com",
+    databaseURL: "https://react-7a4e1.firebaseio.com",
+    projectId: "react-7a4e1",
+    storageBucket: "react-7a4e1.appspot.com",
+    messagingSenderId: "253304754833",
+    appId: "1:253304754833:web:5cc2e97c94c96795e32530",
+    measurementId: "G-NHMTG1FQ2D"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
 </html>
