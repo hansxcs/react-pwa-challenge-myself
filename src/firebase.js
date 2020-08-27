@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import '@firebase/messaging';
 
+
 const config = {
     messaggingSenderId: '253304754833'
 }
