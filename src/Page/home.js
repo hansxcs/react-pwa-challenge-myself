@@ -104,6 +104,10 @@ class Home extends Component {
           check,
           iteration: e.item,
         },
+        delete: {
+          text: 'FORTFEIT',
+          check: false,
+        },
       },
     });
   }
@@ -184,7 +188,7 @@ class Home extends Component {
       });
   };
 
-  handleDelete = async (data, iteration) => {};
+  handleDelete = async (data, iteration) => { };
   render() {
     return (
       <div>
@@ -194,16 +198,16 @@ class Home extends Component {
         {this.state.is_fetching ? (
           "Please Wait..."
         ) : (
-          <AliceCarousel
-            startIndex={0}
-            fadeOutAnimation={true}
-            mouseDragEnabled={true}
-            buttonsDisabled={true}
-            onSlideChanged={(event) => this.onSlideChanged(event)}
-          >
-            {this.renderGoal()}
-          </AliceCarousel>
-        )}
+            <AliceCarousel
+              startIndex={0}
+              fadeOutAnimation={true}
+              mouseDragEnabled={true}
+              buttonsDisabled={true}
+              onSlideChanged={(event) => this.onSlideChanged(event)}
+            >
+              {this.renderGoal()}
+            </AliceCarousel>
+          )}
         <div className="container">
           <Button
             formdata={this.state.button.checkIn}

@@ -231,10 +231,9 @@ class AddGoal extends Component {
             const cookies = new Cookies();
             var token = cookies.get('challengemyself_session')
             var today = new Date();
-
             Api.post('/goal/store', {
                 name: dataToSubmit.goal_name,
-                is_not_lazy: dataToSubmit.auto_checkin,
+                is_not_lazy: !dataToSubmit.auto_checkin,
                 started_at: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
                 total_day: dataToSubmit.total_day,
             },
